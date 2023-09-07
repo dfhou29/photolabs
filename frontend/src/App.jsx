@@ -14,17 +14,27 @@ const sampleDataForPhotoListItem = {
   profile: `${process.env.PUBLIC_URL}/profile-1.jpg`,
 };
 
-// Note: Rendering a single component to build components in isolation
-const App = () => {
-  return (
-    <div className="App">
+const populateListItems = (count) => {
+  const listItems = [];
+  for (let x = 0; x < count; x++) {
+    listItems.push(
       <PhotoListItem key={sampleDataForPhotoListItem.id}
                      image={sampleDataForPhotoListItem.imageSource}
                      profile={sampleDataForPhotoListItem.profile}
                      username={sampleDataForPhotoListItem.username}
                      city={sampleDataForPhotoListItem.location.city}
                      country={sampleDataForPhotoListItem.location.country}
-      />
+      />);
+  }
+  return listItems;
+}
+
+
+// Note: Rendering a single component to build components in isolation
+const App = () => {
+  return (
+    <div className="App">
+      {populateListItems(3)}
     </div>
   );
 };
