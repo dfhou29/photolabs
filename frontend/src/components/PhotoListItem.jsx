@@ -4,13 +4,18 @@ import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
 
-const PhotoListItem = ({image, profile, username, city, country}) => {
+const PhotoListItem = ({image, profile, username, city, country, setFavorite}) => {
 
   const [select, setSelect] = useState(false);
 
+  const handleLike = () => {
+    setSelect(true);
+    setFavorite();
+  }
+
   return (
     <div className="photo-list__item">
-      <PhotoFavButton selected={select} onClick={()=>setSelect(true)}/>
+      <PhotoFavButton selected={select} onClick={()=>handleLike()}/>
       <img src={image} alt="photo" className="photo-list__image"/>
 
       <div className="photo-list__user-details">

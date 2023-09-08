@@ -3,7 +3,7 @@ import React from "react";
 import "../styles/PhotoList.scss";
 import PhotoListItem from "./PhotoListItem";
 
-const PhotoList = ({photos}) => {
+const PhotoList = ({photos , favorite, setFavorite}) => {
   return (
     <ul className="photo-list">
       {photos.map((item) => (
@@ -13,7 +13,9 @@ const PhotoList = ({photos}) => {
             profile={item.user.profile}
             username={item.user.username}
             city={item.location.city}
-            country={item.location.country}/>
+            country={item.location.country}
+            setFavorite = {() => setFavorite(prev => [...favorite, item.id])}
+          />
         </div>
       ))}
     </ul>
