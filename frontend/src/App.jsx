@@ -4,7 +4,7 @@ import React from 'react';
 import './App.scss';
 import PhotoDetailsModal from "./routes/PhotoDetailsModal";
 import PhotoList from "./components/PhotoList";
-import TopicList from "./components/TopicList";
+import TopNavigationBar from "./components/TopNavigationBar";
 
 
 
@@ -12,8 +12,8 @@ import TopicList from "./components/TopicList";
 const App = () => {
   return (
     <div className="App">
+      <TopNavigationBar/>
       {/*<PhotoList/>*/}
-      <TopicList/>
     </div>
   );
 };

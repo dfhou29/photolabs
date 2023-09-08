@@ -10,7 +10,7 @@ const PhotoListItem = ({image, profile, username, city, country}) => {
 
   return (
     <div className="photo-list__item">
-      <PhotoFavButton selected={select} displayAlert={select} onClick={()=>setSelect(true)}/>
+      <PhotoFavButton selected={select} onClick={()=>setSelect(true)}/>
       <img src={image} alt="photo" className="photo-list__image"/>
 
       <div className="photo-list__user-details">
