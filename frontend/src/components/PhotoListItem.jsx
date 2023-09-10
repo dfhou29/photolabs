@@ -4,7 +4,7 @@ import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
 
-const PhotoListItem = ({image, fullImage, profile, username, city, country, setFavorite, setDetailModal, setDetailPhoto}) => {
+const PhotoListItem = ({image, fullImage, profile, username, city, country, setFavorite, setDetailModal}) => {
 
   const [select, setSelect] = useState(false);
 
