@@ -1,19 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 
 import './App.scss';
-import PhotoDetailsModal from "./routes/PhotoDetailsModal";
-import PhotoList from "./components/PhotoList";
-import TopNavigationBar from "./components/TopNavigationBar";
+
 import HomeRoute from "./routes/HomeRoute";
+
+import PhotoDetailsModal from "./routes/PhotoDetailsModal";
 
 
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
+  const [detailModal, setDetailModal] = useState(false);
+
+
   return (
     <div className="App">
-      <HomeRoute/>
+      <HomeRoute setDetailModal={setDetailModal}/>
+      {detailModal && <PhotoDetailsModal setDetailModal={setDetailModal}/>}
     </div>
   );
 };
