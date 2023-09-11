@@ -4,9 +4,9 @@ import '../styles/TopNavigationBar.scss'
 import TopicList from "./TopicList";
 import FavBadge from "./FavBadge";
 
-const TopNavigation = ({topics, favorite}) => {
+const TopNavigation = ({topics, state}) => {
   const isFavPhotoExist = () => {
-    return favorite.length > 0;
+    return state.favorite.length > 0;
   }
 
   return (

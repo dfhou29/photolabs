@@ -6,13 +6,13 @@ import PhotoList from "../components/PhotoList";
 import photos from '../mocks/photos';
 import topics from '../mocks/topics';
 
-const HomeRoute = ({detailModal, setDetailModal, favorite, detailItem, setDetailItem, handleLike, isSelected}) => {
+const HomeRoute = ({state, isSelected, updateToFavPhotoIds, setPhotoSelected, onClosePhotoDetailsModal}) => {
 
 
   return (
     <div className="home-route">
-      <TopNavigationBar topics={topics} favorite={favorite}/>
-      <PhotoList photos={photos} detailModal={detailModal} setDetailModal={setDetailModal} detailItem={detailItem} setDetailItem={setDetailItem} handleLike={handleLike} isSelected={isSelected}/>
+      <TopNavigationBar topics={topics} state={state} updateToFavPhotoIds={updateToFavPhotoIds}/>
+      <PhotoList photos={photos} state={state} isSelected={isSelected} updateToFavPhotoIds={updateToFavPhotoIds} setPhotoSelected={setPhotoSelected} onClosePhotoDetailsModal={onClosePhotoDetailsModal}/>
     </div>
   );
 };

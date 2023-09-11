@@ -5,13 +5,13 @@ import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoList from "../components/PhotoList";
 import PhotoFavButton from "../components/PhotoFavButton";
 
-const PhotoDetailsModal = ({detailModal, setDetailModal, isSelected, detailItem, setDetailItem, handleLike}) => {
+const PhotoDetailsModal = ({state, isSelected, updateToFavPhotoIds, setPhotoSelected, onClosePhotoDetailsModal}) => {
 
 
   const similarPhotos = [];
-  console.log(detailItem);
-  for (const photo in detailItem['similar_photos']) {
-    similarPhotos.push(detailItem['similar_photos'][photo]);
+  console.log(state.detailModal);
+  for (const photo in state.detailItem['similar_photos']) {
+    similarPhotos.push(state.detailItem['similar_photos'][photo]);
   }
 
 
@@ -19,25 +19,23 @@ const PhotoDetailsModal = ({detailModal, setDetailModal, isSelected, detailItem,
     <div className="photo-details-modal">
       <div className="photo-details-modal__top-bar">
         <button className="photo-details-modal__close-button">
-          <img src={closeSymbol} alt="close symbol" onClick={() => setDetailModal(false)}/>
+          <img src={closeSymbol} alt="close symbol" onClick={() => onClosePhotoDetailsModal(state.detailItem)}/>
         </button>
       </div>
 
       <div className="photo-details-modal__images">
-        <PhotoFavButton selected={isSelected(detailItem.id)} onClick={() => handleLike(detailItem)}/>
-        <img src={detailItem.urls.full} alt="profile picture" className="photo-details-modal__image"/>
+        <PhotoFavButton selected={isSelected(state.detailItem.id)} onClick={()=>{updateToFavPhotoIds(state.detailItem); setPhotoSelected(state.detailItem)}}/>
+        <img src={state.detailItem.urls.full} alt="profile picture" className="photo-details-modal__image"/>
         <div className="photo-list__user-details">
-          <img src={detailItem.user.profile} alt="profile picture" className="photo-list__user-profile"/>
+          <img src={state.detailItem.user.profile} alt="profile picture" className="photo-list__user-profile"/>
           <div className="photo-list__user-info">
-            <p>{detailItem.user.name}</p>
-            <p className="photo-list__user-location">{detailItem.location.city}, {detailItem.location.country}</p>
+            <p>{state.detailItem.user.name}</p>
+            <p className="photo-list__user-location">{state.detailItem.location.city}, {state.detailItem.location.country}</p>
           </div>
         </div>
         <h3 className="photo-details-modal__header">Similar Photos</h3>
         <div>
-          <PhotoList photos={similarPhotos} detailModal={detailModal}
-                     setDetailModal={setDetailModal} detailItem={detailItem} setDetailItem={setDetailItem}
-                     isSelected={isSelected} handleLike={handleLike}/>
+          <PhotoList photos={similarPhotos} state={state} isSelected={isSelected} updateToFavPhotoIds={updateToFavPhotoIds} setPhotoSelected={setPhotoSelected} onClosePhotoDetailsModal={onClosePhotoDetailsModal}/>
         </div>
 
 
