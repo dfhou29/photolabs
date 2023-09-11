@@ -19,7 +19,7 @@ const PhotoDetailsModal = ({state, isSelected, updateToFavPhotoIds, setPhotoSele
     <div className="photo-details-modal">
       <div className="photo-details-modal__top-bar">
         <button className="photo-details-modal__close-button">
-          <img src={closeSymbol} alt="close symbol" onClick={() => onClosePhotoDetailsModal(state.detailItem)}/>
+          <img src={closeSymbol} alt="close symbol" onClick={() => onClosePhotoDetailsModal(null)}/>
         </button>
       </div>
 
@@ -33,7 +33,7 @@ const PhotoDetailsModal = ({state, isSelected, updateToFavPhotoIds, setPhotoSele
             <p className="photo-list__user-location">{state.detailItem.location.city}, {state.detailItem.location.country}</p>
           </div>
         </div>
-        <h3 className="photo-details-modal__header">Similar Photos</h3>
+        {similarPhotos.length !== 0 && <h3 className="photo-details-modal__header">Similar Photos</h3>}
         <div>
           <PhotoList photos={similarPhotos} state={state} isSelected={isSelected} updateToFavPhotoIds={updateToFavPhotoIds} setPhotoSelected={setPhotoSelected} onClosePhotoDetailsModal={onClosePhotoDetailsModal}/>
         </div>
