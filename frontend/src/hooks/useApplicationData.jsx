@@ -1,43 +1,59 @@
-import {useReducer} from "react";
+import {useEffect, useReducer} from "react";
+import axios from 'axios';
 
 const ACTIONS = {
   FAV_PHOTO: 'FAV_PHOTO',
   SELECT_PHOTO: 'SELECT_PHOTO',
-  DETAIL_MODAL: 'DETAIL_MODAL'
+  DETAIL_MODAL: 'DETAIL_MODAL',
+  SET_PHOTO_DATA: 'SET_PHOTO_DATA',
+  SET_TOPIC_DATA: 'SET_TOPIC_DATA',
+  GET_PHOTOS_BY_TOPICS: 'GET_PHOTOS_BY_TOPICS'
 }
 const useApplicationData = () => {
+
+  const requests = [axios.get('/api/photos'), axios.get('/api/topics')];
+
+  useEffect(() => {
+    Promise.all(requests)
+    .then(res => {
+      const photos = res[0].data;
+      const topics = res[1].data;
+      dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: photos});
+      dispatch({type: ACTIONS.SET_TOPIC_DATA, payload: topics});
+    })
+  }, []);
 
 
   function reducer(state, action) {
     switch (action.type) {
       case ACTIONS.FAV_PHOTO:
-        if (state.favorite.includes(action.id)) {
+        if (state.favorite.includes(action.payload)) {
           return {
             ...state,
-            favorite: state.favorite.filter(id => id !== action.id)
+            favorite: state.favorite.filter(id => id !== action.payload)
           }
         } else {
           return {
             ...state,
-            favorite: [...state.favorite, action.id]
+            favorite: [...state.favorite, action.payload]
           }
         }
 
       case ACTIONS.SELECT_PHOTO:
-        if (state.select.includes(action.id)) {
+        if (state.select.includes(action.payload)) {
           return {
             ...state,
-            select: state.select.filter(id => id !== action.id)
+            select: state.select.filter(id => id !== action.payload)
           }
         } else {
           return {
             ...state,
-            select: [...state.select, action.id]
+            select: [...state.select, action.payload]
           }
         }
 
       case ACTIONS.DETAIL_MODAL:
-        if (action.item === null || state.detailItem === action.item) {
+        if (action.payload === null || state.detailItem === action.payload) {
           return {
             ...state,
             detailModal: false,
@@ -47,8 +63,25 @@ const useApplicationData = () => {
           return {
             ...state,
             detailModal: true,
-            detailItem: action.item
+            detailItem: action.payload
           }
+        }
+      case ACTIONS.SET_PHOTO_DATA:
+        return {
+          ...state,
+          photoData: action.payload
+        }
+
+      case ACTIONS.SET_TOPIC_DATA:
+        return {
+          ...state,
+          topicData: action.payload
+        }
+
+      case ACTIONS.GET_PHOTOS_BY_TOPICS:
+        return {
+          ...state,
+          photoData: action.payload
         }
 
       default:
@@ -60,6 +93,8 @@ const useApplicationData = () => {
   }
 
   const initialState = {
+    photoData: [],
+    topicData: [],
     favorite: [],
     detailModal: false,
     detailItem: [],
@@ -73,19 +108,28 @@ const useApplicationData = () => {
     return state.select.includes(id);
   }
   const updateToFavPhotoIds = (item) => {
-    dispatch({type: ACTIONS.FAV_PHOTO, id: item.id});
+    dispatch({type: ACTIONS.FAV_PHOTO, payload: item.id});
   }
 
   const setPhotoSelected = (item) => {
-    dispatch({type: ACTIONS.SELECT_PHOTO, id: item.id});
+    dispatch({type: ACTIONS.SELECT_PHOTO, payload: item.id});
   }
 
   const onClosePhotoDetailsModal = (item) => {
-    dispatch({type: ACTIONS.DETAIL_MODAL, item: item});
+    dispatch({type: ACTIONS.DETAIL_MODAL, payload: item});
+  }
+
+  const fetchPhotosByTopic = (topic) => {
+    axios.get(`/api/topics/photos/${topic}`)
+    .then(res => {
+      const photos = res.data;
+      dispatch({type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: photos});
+    })
+
   }
 
   return {
-    state, isSelected, updateToFavPhotoIds, setPhotoSelected, onClosePhotoDetailsModal
+    state, isSelected, updateToFavPhotoIds, setPhotoSelected, onClosePhotoDetailsModal, fetchPhotosByTopic
   }
 }
 
