@@ -4,23 +4,18 @@ import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
 
-const PhotoListItem = ({image, fullImage, profile, username, city, country, setFavorite, setDetailModal}) => {
+const PhotoListItem = ({displayItem, image, fullImage, profile, username, city, country, detailModal, setDetailModal, setDetailItem, handleLike, isSelected}) => {
 
-  const [select, setSelect] = useState(false);
 
-  const handleLike = () => {
-    setSelect(true);
-    setFavorite();
-  }
 
   const handleModal = () => {
     setDetailModal(true);
+    setDetailItem(displayItem);
   }
-
   return (
     <div className="photo-list__item">
-      <PhotoFavButton selected={select} onClick={()=>handleLike()}/>
-      <img src={image} alt="photo" className="photo-list__image" onClick={() => handleModal()} />
+      <PhotoFavButton selected={isSelected(displayItem.id)} onClick={()=>handleLike(displayItem)}/>
+      <img src={detailModal ? fullImage: image} alt="photo" className="photo-list__image" onClick={() => handleModal()} />
 
       <div className="photo-list__user-details">
         <img src={profile} alt="profile picture" className="photo-list__user-profile"/>

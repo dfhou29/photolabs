@@ -3,12 +3,13 @@ import React from "react";
 import "../styles/PhotoList.scss";
 import PhotoListItem from "./PhotoListItem";
 
-const PhotoList = ({photos , favorite, setFavorite, setDetailModal}) => {
+const PhotoList = ({photos, detailModal, setDetailModal, setDetailItem, handleLike, isSelected}) => {
   return (
     <ul className="photo-list">
       {photos.map((item) => (
-        <div key={item.id}>
+        <li key={item.id}>
           <PhotoListItem
+            displayItem={item}
             image={item.urls.regular}
             fullImage={item.urls.full}
             profile={item.user.profile}
@@ -16,10 +17,13 @@ const PhotoList = ({photos , favorite, setFavorite, setDetailModal}) => {
             city={item.location.city}
             country={item.location.country}
             similarPhotos={item['similar_photos']}
-            setFavorite = {() => setFavorite(prev => [...favorite, item.id])}
+            detailModal={detailModal}
             setDetailModal={setDetailModal}
+            setDetailItem = {setDetailItem}
+            handleLike={handleLike}
+            isSelected={isSelected}
           />
-        </div>
+        </li>
       ))}
     </ul>
   );
