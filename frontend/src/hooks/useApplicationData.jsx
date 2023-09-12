@@ -129,8 +129,25 @@ const useApplicationData = () => {
 
   }
 
+  const fetchLikedPhotos = (favorite) => {
+      axios.get('/api/photos')
+      .then(res => {
+        const photos = res.data;
+        const likedPhotos = photos.filter(photo => favorite.includes(photo.id));
+        dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: likedPhotos});
+      })
+  }
+
+  const fetchAllPhotos = () => {
+    axios.get('/api/photos')
+    .then(res => {
+      const photos = res.data;
+      dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: photos});
+    })
+  }
+
   return {
-    state, isSelected, updateToFavPhotoIds, setPhotoSelected, onClosePhotoDetailsModal, fetchPhotosByTopic
+    state, isSelected, updateToFavPhotoIds, setPhotoSelected, onClosePhotoDetailsModal, fetchPhotosByTopic, fetchLikedPhotos, fetchAllPhotos
   }
 }
 

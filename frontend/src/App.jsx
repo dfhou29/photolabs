@@ -15,7 +15,7 @@ export const AppContext = React.createContext(); // use context to prevent props
 const App = () => {
 
   const contexts = useApplicationData();
-
+  console.log(contexts.state.photoData);
   return (
     <AppContext.Provider value={contexts}>
 

@@ -7,7 +7,7 @@ import {AppContext} from "../App";
 
 const TopNavigation = () => {
 
-  const {state} = useContext(AppContext);
+  const {state, fetchAllPhotos} = useContext(AppContext);
 
   const isFavPhotoExist = () => {
     return state.favorite.length > 0;
@@ -15,7 +15,7 @@ const TopNavigation = () => {
 
   return (
     <div className="top-nav-bar">
-      <span className="top-nav-bar__logo">PhotoLabs</span>
+      <span className="top-nav-bar__logo" onClick={()=>fetchAllPhotos()}>PhotoLabs</span>
       <TopicList/>
       <FavBadge isFavPhotoExist={isFavPhotoExist()}/>
     </div>
