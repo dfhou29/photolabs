@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
@@ -28,7 +28,7 @@ const PhotoDetailsModal = () => {
       <div className="photo-details-modal__images">
         <PhotoFavButton selected={isSelected(state.detailItem.id)} onClick={() => {
           updateToFavPhotoIds(state.detailItem);
-          setPhotoSelected(state.detailItem)
+          setPhotoSelected(state.detailItem);
         }}/>
         <img src={state.detailItem.urls.full} alt="profile picture" className="photo-details-modal__image"/>
         <div className="photo-list__user-details">
@@ -39,6 +39,7 @@ const PhotoDetailsModal = () => {
               className="photo-list__user-location">{state.detailItem.location.city}, {state.detailItem.location.country}</p>
           </div>
         </div>
+
         {similarPhotos.length !== 0 && <h3 className="photo-details-modal__header">Similar Photos</h3>}
         <div>
           <PhotoList photos={similarPhotos} state={state} isSelected={isSelected}

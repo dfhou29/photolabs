@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 
 import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
@@ -7,6 +7,7 @@ import {AppContext} from "../App";
 
 const PhotoListItem = ({displayItem}) => {
 
+  // deconstruct object
   const {
     urls: {regular, full},
     user: {profile, username},
