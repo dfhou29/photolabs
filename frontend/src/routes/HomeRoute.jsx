@@ -1,20 +1,21 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 
 import '../styles/HomeRoute.scss';
 import TopNavigationBar from "../components/TopNavigationBar";
 import PhotoList from "../components/PhotoList";
 import photos from '../mocks/photos';
 import topics from '../mocks/topics';
+import {AppContext} from "../App";
 
-const HomeRoute = ({state, isSelected, updateToFavPhotoIds, setPhotoSelected, onClosePhotoDetailsModal, fetchPhotoNyTopic}) => {
+const HomeRoute = () => {
 
 
   return (
     <div className="home-route">
-      <TopNavigationBar topics={state.topicData} state={state} updateToFavPhotoIds={updateToFavPhotoIds} fetchPhotoByTopic={fetchPhotoNyTopic}/>
-      <PhotoList photos={state.photoData} state={state} isSelected={isSelected} updateToFavPhotoIds={updateToFavPhotoIds} setPhotoSelected={setPhotoSelected} onClosePhotoDetailsModal={onClosePhotoDetailsModal}/>
+      <TopNavigationBar/>
+      <PhotoList/>
     </div>
-  );
+  )
 };
 
 export default HomeRoute;

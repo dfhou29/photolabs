@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import '../styles/TopNavigationBar.scss'
 import TopicList from "./TopicList";
 import FavBadge from "./FavBadge";
+import {AppContext} from "../App";
 
-const TopNavigation = ({topics, state, fetchPhotoByTopic}) => {
+const TopNavigation = () => {
+
+  const {state} = useContext(AppContext);
+
   const isFavPhotoExist = () => {
     return state.favorite.length > 0;
   }
@@ -12,7 +16,7 @@ const TopNavigation = ({topics, state, fetchPhotoByTopic}) => {
   return (
     <div className="top-nav-bar">
       <span className="top-nav-bar__logo">PhotoLabs</span>
-      <TopicList topics={topics} fetchPhotoByTopic={fetchPhotoByTopic}/>
+      <TopicList/>
       <FavBadge isFavPhotoExist={isFavPhotoExist()}/>
     </div>
   )

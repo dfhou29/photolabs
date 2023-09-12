@@ -1,10 +1,11 @@
 import React from "react";
 
 import "../styles/TopicListItem.scss";
-const TopicListItem = ({slug, title, fetchPhotoByTopic}) => {
+
+const TopicListItem = ({slug, title, fetchPhotosByTopic}) => {
   return (
     <div className="topic-list__item" data-slug={slug}>
-      <span onClick={fetchPhotoByTopic}>{title}</span>
+      <span onClick={fetchPhotosByTopic}>{title}</span>
     </div>
   );
 };

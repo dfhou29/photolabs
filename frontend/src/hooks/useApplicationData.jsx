@@ -11,6 +11,7 @@ const ACTIONS = {
 }
 const useApplicationData = () => {
 
+  // use Promise.all to handle multiple api requests
   const requests = [axios.get('/api/photos'), axios.get('/api/topics')];
 
   useEffect(() => {

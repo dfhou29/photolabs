@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 
 import './App.scss';
@@ -9,17 +9,24 @@ import PhotoDetailsModal from "./routes/PhotoDetailsModal";
 
 import useApplicationData from "./hooks/useApplicationData";
 
-
+export const AppContext = React.createContext(); // use context to prevent props drilling
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
-  const {state, isSelected, updateToFavPhotoIds, setPhotoSelected, onClosePhotoDetailsModal, fetchPhotosByTopic} = useApplicationData();
+
+  const contexts = useApplicationData();
 
   return (
-    <div className="App">
-      <HomeRoute photos={state.photoData} state={state} isSelected={isSelected} updateToFavPhotoIds={updateToFavPhotoIds} setPhotoSelected={setPhotoSelected} onClosePhotoDetailsModal={onClosePhotoDetailsModal} fetchPhotoNyTopic={fetchPhotosByTopic}/>
-      {!!state.detailModal && <PhotoDetailsModal state={state} isSelected={isSelected} updateToFavPhotoIds={updateToFavPhotoIds} setPhotoSelected={setPhotoSelected} onClosePhotoDetailsModal={onClosePhotoDetailsModal}/>}
-    </div>
+    <AppContext.Provider value={contexts}>
+
+      <div className="App">
+        <HomeRoute/>
+
+        {/*render detail modal conditionally*/}
+        {!!contexts.state.detailModal && <PhotoDetailsModal/>}
+      </div>
+
+    </AppContext.Provider>
   );
 };
 

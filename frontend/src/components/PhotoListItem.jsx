@@ -1,16 +1,19 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 
 import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
+import {AppContext} from "../App";
 
 
-const PhotoListItem = ({displayItem, state, isSelected, updateToFavPhotoIds, setPhotoSelected, onClosePhotoDetailsModal}) => {
+const PhotoListItem = ({displayItem}) => {
 
   const {
     urls: {regular, full},
     user: {profile, username},
     location: {city, country},
   } = displayItem;
+
+  const {state, isSelected, updateToFavPhotoIds, setPhotoSelected, onClosePhotoDetailsModal} = useContext(AppContext);
 
 
   return (
